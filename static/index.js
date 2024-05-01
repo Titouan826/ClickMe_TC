@@ -50,7 +50,7 @@ socket.on('gagne', function(){
 });
 
 
-socket.on('maj-joueurs',function (joueurs){
+socket.on('maj-joueurs', function (joueurs){
     joueursTable.innerHTML = '';
     for(const joueur of joueurs){
         const ligne = joueursTable.insertRow();
@@ -58,3 +58,4 @@ socket.on('maj-joueurs',function (joueurs){
         nomTd.textContent = joueur.nom;
     }
 });
+

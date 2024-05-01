@@ -25,11 +25,13 @@ io.on("connection", (socket) => {
   // Un client s'est connecté.
   socket.emit('initialise', partie.nombreCibles);
   socket.emit('nouvelle-cible', partie.numeroCible);
+  console.log(socket.id);
 
   // Ajoute une joueur à la partie
   partie.nouveauJoueur(socket.id);
   // Informe les clients
   io.emit('maj-joueurs', partie.joueurs);
+  console.log(partie.joueurs);
 
   // On écoute des évènements sur le socket
   socket.on('click-cible',  (numeroCible) => {
@@ -44,6 +46,8 @@ io.on("connection", (socket) => {
 
   socket.on('disconnect', () => {
     console.log(`le joueur ${socket.id} s'est déconnecté`);
+    partie.supprimeJoueur(socket.id);
+    io.emit('maj-joueurs', partie.joueurs);
   });
 
 });
