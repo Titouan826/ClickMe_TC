@@ -62,7 +62,7 @@ export class Partie {
 /**
  * Classe représentant un joueur.
  * ┌──────────────────┐
- * │    Partie        │
+ * │    Joueur        │
  * ├──────────────────┤
  * │ - nom            │
  * │ - socketId       │
@@ -75,5 +75,8 @@ class Joueur {
         this.socketId = socketId;
     }
 
+    changerNom(nouveauNom){
+        this.nom = nouveauNom;
+    }
 }
 
