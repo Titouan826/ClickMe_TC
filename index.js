@@ -31,7 +31,7 @@ io.on("connection", (socket) => {
   partie.nouveauJoueur(socket.id);
   // Informe les clients
   io.emit('maj-joueurs', partie.joueurs);
-  console.log(partie.joueurs);
+  //console.log(partie.joueurs);
 
   // On écoute des évènements sur le socket
   socket.on('click-cible',  (numeroCible) => {
@@ -50,11 +50,17 @@ io.on("connection", (socket) => {
     io.emit('maj-joueurs', partie.joueurs);
   });
 
+  socket.on('changer-nom', (nouveauNom) => {
+    let joueur = partie.getJoueurById(socket.id);
+    joueur.changerNom(nouveauNom);
+    io.emit('maj-joueurs', partie.joueurs);
+  });
+
 });
+
+
+
 
 // Lance le serveur.
 console.log('Lance le serveur sur http://localhost:3000');
 server.listen(3000);
-
-
-

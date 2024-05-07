@@ -38,3 +38,8 @@ body{
     display: flex;
     justify-content: space-between;
 }
+
+table{
+    margin-right: 1000px;
+    margin-left: 50px;
+}
