@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
   // Un client s'est connecté.
   socket.emit('initialise', partie.nombreCibles);
   socket.emit('nouvelle-cible', partie.numeroCible);
-  console.log(socket.id);
+  //console.log(socket.id);
 
   // Ajoute une joueur à la partie
   partie.nouveauJoueur(socket.id);
@@ -40,7 +40,10 @@ io.on("connection", (socket) => {
       // Envoie le message 'nouvelle-cible à tous les sockets.
       io.emit('nouvelle-cible', partie.numeroCible);
       // Envoie le message 'gagne' seulement à ce socket.
+      let joueur = partie.getJoueurById(socket.id);
+      joueur.changerScore();
       socket.emit('gagne');
+      io.emit('maj-joueurs', partie.joueurs);
     }
   });
 
