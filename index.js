@@ -11,6 +11,7 @@ const server = createServer(app);
 const io = new Server(server);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static('static/'));
+let ancienGagnant = "";
 
 // Crée une partie
 const partie = new Partie();
@@ -42,8 +43,20 @@ io.on("connection", (socket) => {
       // Envoie le message 'gagne' seulement à ce socket.
       let joueur = partie.getJoueurById(socket.id);
       joueur.changerScore();
+      if (joueur.socketId == ancienGagnant){
+        joueur.changerCombo();
+        if (joueur.combo > joueur.comboMax){
+          joueur.changerComboMax();
+        }
+      }
+      else {
+        let ancienJoueur = partie.getJoueurById(ancienGagnant);
+        ancienJoueur.stopCombo();
+      }
+
       socket.emit('gagne');
       io.emit('maj-joueurs', partie.joueurs);
+      ancienGagnant = joueur.socketId
     }
   });
 

@@ -67,6 +67,8 @@ export class Partie {
  * │ - nom            │
  * │ - socketId       |
  * | - score          |
+ * | - combo          |
+ * | - comboMax       |
  * ├──────────────────┤
  * └──────────────────┘
  */
@@ -75,6 +77,8 @@ class Joueur {
         this.nom = nom;
         this.socketId = socketId;
         this.score = 0;
+        this.combo = 0;
+        this.comboMax = 0;
     }
 
     changerNom(nouveauNom){
@@ -83,6 +87,18 @@ class Joueur {
 
     changerScore(){
         this.score += 1;
+    }
+
+    changerCombo(){
+        this.combo += 1;
+    }
+
+    stopCombo(){
+        this.combo = 0;
+    }
+
+    changerComboMax(){
+        this.comboMax += 1;
     }
 }
 
