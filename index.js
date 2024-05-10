@@ -43,7 +43,9 @@ io.on("connection", (socket) => {
       let joueur = partie.getJoueurById(socket.id);
       joueur.changerScore();
       socket.emit('gagne');
+
       io.emit('maj-joueurs', partie.joueurs);
+      socket.emit('timer');
     }
   });
 

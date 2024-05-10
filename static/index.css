@@ -29,8 +29,7 @@ body{
 }
 
 #gagne{
-    height: 1.5em;
-    margin-bottom: 10px;
+    height: 1em;
     font-size: 1.5em;
 }
 
@@ -50,4 +49,9 @@ td, th{
 form{
     margin-bottom: 50px;
     margin-left: 30px;
+}
+
+#temps-reaction{
+    padding-bottom: 20px;
+    padding-top: 20px;
 }
