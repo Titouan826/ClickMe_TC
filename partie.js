@@ -65,7 +65,8 @@ export class Partie {
  * │    Joueur        │
  * ├──────────────────┤
  * │ - nom            │
- * │ - socketId       │
+ * │ - socketId       |
+ * | - score          |
  * ├──────────────────┤
  * └──────────────────┘
  */
@@ -73,10 +74,15 @@ class Joueur {
     constructor(socketId, nom){
         this.nom = nom;
         this.socketId = socketId;
+        this.score = 0;
     }
 
     changerNom(nouveauNom){
         this.nom = nouveauNom;
+    }
+
+    changerScore(){
+        this.score += 1;
     }
 }
 

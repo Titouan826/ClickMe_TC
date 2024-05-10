@@ -49,6 +49,7 @@ socket.on('nouvelle-cible', function(numeroCible){
 
 socket.on('gagne', function(){
     gagneDiv.textContent = "Gagné!";
+    // joueur.changerScore();
 });
 
 
@@ -56,8 +57,10 @@ socket.on('maj-joueurs', function (joueurs){
     joueursTable.innerHTML = '';
     for(const joueur of joueurs){
         const ligne = joueursTable.insertRow();
-        let nomTd = ligne.insertCell();
-        nomTd.textContent = joueur.nom;
+        let nom = ligne.insertCell();
+        nom.textContent = joueur.nom;
+        let score = ligne.insertCell();
+        score.textContent = joueur.score;
     }
 
 });
