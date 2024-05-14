@@ -13,6 +13,7 @@ body{
     gap:10px;
     width:100%;
     height:100%;
+    margin-top: 40px;
 }
 
 .cible{
@@ -65,13 +66,8 @@ h1{
     max-width: 40%;
 
 }
-
-#gagne{
-    margin-left: 100px;
-}
   
 #temps-reaction{
-    padding-bottom: 20px;
-    padding-top: 20px;
-    margin-left: 100px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }

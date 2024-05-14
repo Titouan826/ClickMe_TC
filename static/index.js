@@ -60,6 +60,7 @@ socket.on('nouvelle-cible', function(numeroCible){
 
     // Vide gagneDiv
     gagneDiv.textContent = "";
+    tempsDiv.textContent = "";
 
     //Lance le timer
     debutTimer = Date.now();
