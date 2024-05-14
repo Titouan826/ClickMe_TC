@@ -8,7 +8,7 @@ Une grille de 16 cibles apparait à l'écran, et l'une des cibles est colorée. 
 ## Technologies utilisées
 
 **Language**: [node.js](https://nodejs.org/en)
-**Frameworks**: [expressjs](http://expressjs.com/) et [socket.io](https://socket.io/)\
+**Frameworks**: [expressjs](http://expressjs.com/), [socket.io](https://socket.io/) et [bootstrap](https://getbootstrap.com/docs/3.4/css/)\
 HTML, CSS, JSON.
 
 ## Déploiment local

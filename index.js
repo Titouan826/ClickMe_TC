@@ -5,6 +5,7 @@ import { Server } from 'socket.io';
 import { join, dirname } from 'node:path';
 import { Partie } from './partie.js';
 
+
 // Mise en place du serveur
 const app = express();
 const server = createServer(app);
@@ -36,12 +37,11 @@ io.on("connection", (socket) => {
   // On écoute des évènements sur le socket
   socket.on('click-cible',  (numeroCible) => {
     if (numeroCible == partie.numeroCible){
-      partie.nouvelleCible();
+      partie.gagne(socket.id);
+
       // Envoie le message 'nouvelle-cible à tous les sockets.
       io.emit('nouvelle-cible', partie.numeroCible);
       // Envoie le message 'gagne' seulement à ce socket.
-      let joueur = partie.getJoueurById(socket.id);
-      joueur.changerScore();
       socket.emit('gagne');
 
       io.emit('maj-joueurs', partie.joueurs);

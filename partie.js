@@ -20,6 +20,7 @@ export class Partie {
         this.numeroCible;
         this.joueurs = [];
         this.nouvelleCible();
+        this.ancienGagnant; //joueur
     }
 
     /**
@@ -56,6 +57,26 @@ export class Partie {
     getJoueurById(socketId){
         return this.joueurs.find((joueur) => joueur.socketId == socketId);
     }
+
+    /**Un joueur a cliqué sur la bonne cible
+     * 
+     * @param {*} socketId 
+     */
+    gagne(socketId){
+        this.nouvelleCible();
+        // Envoie le message 'nouvelle-cible à tous les sockets.
+        let joueur = this.getJoueurById(socketId);
+        joueur.changerScore();
+  
+        if (joueur == this.ancienGagnant){
+            joueur.changerCombo();
+        }
+
+        else if (typeof this.ancienGagnant !== 'undefined') {
+            this.ancienGagnant.stopCombo();
+        }
+        this.ancienGagnant = joueur;
+    }
 }
 
 
@@ -67,6 +88,8 @@ export class Partie {
  * │ - nom            │
  * │ - socketId       |
  * | - score          |
+ * | - combo          |
+ * | - comboMax       |
  * ├──────────────────┤
  * └──────────────────┘
  */
@@ -75,6 +98,9 @@ class Joueur {
         this.nom = nom;
         this.socketId = socketId;
         this.score = 0;
+        //
+        this.combo = 1;
+        this.comboMax = 1;
     }
 
     changerNom(nouveauNom){
@@ -83,6 +109,22 @@ class Joueur {
 
     changerScore(){
         this.score += 1;
+    }
+
+    changerCombo(){
+        this.combo += 1;
+        if (this.combo > this.comboMax){
+            this.changerComboMax();
+          }
+    }
+
+    stopCombo(){
+
+        this.combo = 1;
+    }
+
+    changerComboMax(){
+        this.comboMax += 1;
     }
 }
 

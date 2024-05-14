@@ -66,8 +66,7 @@ socket.on('nouvelle-cible', function(numeroCible){
 });
 
 socket.on('gagne', function(){
-    gagneDiv.textContent = "Gagné!";
-    // joueur.changerScore();
+    gagneDiv.textContent = "C'est gagné !";
 });
 
 
@@ -77,8 +76,27 @@ socket.on('maj-joueurs', function (joueurs){
         const ligne = joueursTable.insertRow();
         let nom = ligne.insertCell();
         nom.textContent = joueur.nom;
+        if(document.getElementById('nouveau-nom').value !== ''){
+            document.getElementById('nouveau-nom').value = '';
+        }
+
         let score = ligne.insertCell();
         score.textContent = joueur.score;
+        let combo = ligne.insertCell();
+        if (joueur.combo >= 2){
+            combo.textContent = joueur.combo;
+        }
+        else {
+            combo.textContent = "0";
+        }
+        
+        let comboMax = ligne.insertCell();
+        if (joueur.comboMax >= 2){
+            comboMax.textContent = joueur.comboMax;
+        }
+        else {
+            comboMax.textContent = "0";
+        }
     }
 
 });
