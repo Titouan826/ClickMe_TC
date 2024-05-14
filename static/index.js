@@ -61,9 +61,20 @@ socket.on('maj-joueurs', function (joueurs){
         let score = ligne.insertCell();
         score.textContent = joueur.score;
         let combo = ligne.insertCell();
-        combo.textContent = joueur.combo;
+        if (joueur.combo >= 2){
+            combo.textContent = joueur.combo;
+        }
+        else {
+            combo.textContent = "0";
+        }
+        
         let comboMax = ligne.insertCell();
-        comboMax.textContent = joueur.comboMax;
+        if (joueur.comboMax >= 2){
+            comboMax.textContent = joueur.comboMax;
+        }
+        else {
+            comboMax.textContent = "0";
+        }
     }
 
 });

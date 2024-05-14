@@ -5,13 +5,13 @@ import { Server } from 'socket.io';
 import { join, dirname } from 'node:path';
 import { Partie } from './partie.js';
 
+
 // Mise en place du serveur
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static('static/'));
-let ancienGagnant = "";
 
 // Crée une partie
 const partie = new Partie();
@@ -37,26 +37,12 @@ io.on("connection", (socket) => {
   // On écoute des évènements sur le socket
   socket.on('click-cible',  (numeroCible) => {
     if (numeroCible == partie.numeroCible){
-      partie.nouvelleCible();
+      partie.gagne(socket.id);
+
       // Envoie le message 'nouvelle-cible à tous les sockets.
       io.emit('nouvelle-cible', partie.numeroCible);
-      // Envoie le message 'gagne' seulement à ce socket.
-      let joueur = partie.getJoueurById(socket.id);
-      joueur.changerScore();
-      if (joueur.socketId == ancienGagnant){
-        joueur.changerCombo();
-        if (joueur.combo > joueur.comboMax){
-          joueur.changerComboMax();
-        }
-      }
-      else {
-        let ancienJoueur = partie.getJoueurById(ancienGagnant);
-        ancienJoueur.stopCombo();
-      }
-
       socket.emit('gagne');
       io.emit('maj-joueurs', partie.joueurs);
-      ancienGagnant = joueur.socketId
     }
   });
 

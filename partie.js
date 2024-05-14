@@ -20,6 +20,7 @@ export class Partie {
         this.numeroCible;
         this.joueurs = [];
         this.nouvelleCible();
+        this.ancienGagnant;//joueur
     }
 
     /**
@@ -56,6 +57,27 @@ export class Partie {
     getJoueurById(socketId){
         return this.joueurs.find((joueur) => joueur.socketId == socketId);
     }
+
+    /**Un joueur a cliqué sur la bonne cible
+     * 
+     * @param {*} socketId 
+     */
+    gagne(socketId){
+        this.nouvelleCible();
+        // Envoie le message 'nouvelle-cible à tous les sockets.
+        // Envoie le message 'gagne' seulement à ce socket.
+        let joueur = this.getJoueurById(socketId);
+        joueur.changerScore();
+  
+        if (joueur == this.ancienGagnant){
+            joueur.changerCombo();
+        }
+
+        else if ((typeof this.ancienGagnant !== 'undefined')) {
+              ancienGagnant.stopCombo();
+        }
+        this.ancienGagnant = joueur;
+    }
 }
 
 
@@ -77,8 +99,8 @@ class Joueur {
         this.nom = nom;
         this.socketId = socketId;
         this.score = 0;
-        this.combo = 0;
-        this.comboMax = 0;
+        this.combo = 1;
+        this.comboMax = 1;
     }
 
     changerNom(nouveauNom){
@@ -91,6 +113,9 @@ class Joueur {
 
     changerCombo(){
         this.combo += 1;
+        if (this.combo > this.comboMax){
+            this.changerComboMax();
+          }
     }
 
     stopCombo(){
