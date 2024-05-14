@@ -43,7 +43,9 @@ io.on("connection", (socket) => {
       io.emit('nouvelle-cible', partie.numeroCible);
       // Envoie le message 'gagne' seulement à ce socket.
       socket.emit('gagne');
+
       io.emit('maj-joueurs', partie.joueurs);
+      socket.emit('timer');
     }
   });
 

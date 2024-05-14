@@ -4,13 +4,28 @@ const gagneDiv = document.getElementById('gagne');
 const joueursTable = document.getElementById('tableau-joueurs');
 const inputChangerNom = document.getElementById('nouveau-nom');
 const formChangerNom = document.getElementById('changer-nom');
+const tempsDiv = document.getElementById('temps-reaction');
+var debutTimer;
+var finTimer;
+var tempsReaction;
 
 // Gère le click sur une cible
 function clickCible(event){
     const numeroCible = event.target.getAttribute('numeroCible');
     console.log(`click sur la cible ${numeroCible}`);
+    
+    // Calcul et affichage du temps de réaction
+    finTimer = Date.now();
+    tempsReaction = finTimer - debutTimer;
+    tempsReaction = tempsReaction/1000;
+    //console.log(tempsReaction);
+
     socket.emit('click-cible', numeroCible);
 }
+
+socket.on('timer', function(){
+    tempsDiv.textContent = "Temps: " + tempsReaction + " secondes.";
+});
 
 // Sockets
 socket.on('initialise', function(nombreCible){
@@ -45,6 +60,9 @@ socket.on('nouvelle-cible', function(numeroCible){
 
     // Vide gagneDiv
     gagneDiv.textContent = "";
+
+    //Lance le timer
+    debutTimer = Date.now();
 });
 
 socket.on('gagne', function(){
