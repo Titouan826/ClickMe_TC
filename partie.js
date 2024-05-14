@@ -98,6 +98,7 @@ class Joueur {
         this.nom = nom;
         this.socketId = socketId;
         this.score = 0;
+        //
         this.combo = 1;
         this.comboMax = 1;
     }
@@ -118,7 +119,8 @@ class Joueur {
     }
 
     stopCombo(){
-        this.combo = 0;
+
+        this.combo = 1;
     }
 
     changerComboMax(){
