@@ -35,7 +35,7 @@ body{
 
 #conteneur{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 table{
@@ -51,10 +51,6 @@ form{
     margin-left: 30px;
 }
 
-#jeu{
-    margin-left: 100px;
-}
-
 h1{
     margin-top: 40px !important;
     margin-bottom: 40px !important;
@@ -66,6 +62,8 @@ h1{
 
 #form-table{
     margin-top: 45px !important;
+    max-width: 40%;
+
 }
 
 #gagne{
@@ -75,4 +73,5 @@ h1{
 #temps-reaction{
     padding-bottom: 20px;
     padding-top: 20px;
+    margin-left: 100px;
 }
