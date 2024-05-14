@@ -41,7 +41,7 @@ body{
 
 table{
     margin-right: 1000px;
-    margin-left: 50px;
+    margin-left: 100px;
 }
 td, th{
     padding: 20px;
@@ -50,4 +50,21 @@ td, th{
 form{
     margin-bottom: 50px;
     margin-left: 30px;
+}
+
+#jeu{
+    margin-left: 50px;
+}
+
+h1{
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+}
+
+#changer-nom{
+    margin-left: 100px !important;
+}
+
+#form-table{
+    margin-top: 45px !important;
 }

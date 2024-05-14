@@ -4,25 +4,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/index.css">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" 
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+crossorigin="anonymous">
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="/index.js" defer></script>
 
     <title>Clique en premier sur la cible</title>
   </head>
   <body>
-    <h1>Cliquez la cible verte en premier. </h1>
+    <h1 class="text-center"><strong>Cliquez la cible verte en premier. </strong></h1>
     <div id="conteneur">
       <div>
         <div id="gagne"></div>
         <div id="jeu">Connexion en cours</div>
       </div>
-      <div>
+      <div id="form-table">
         <form id="changer-nom">
-          <label for="fname">Pseudo :</label><br>
-          <input type="text" id="nouveau-nom">
-          <input type="submit" value="Valider"/>
+          <label for="fname">Changer mon pseudo :</label><br>
+          <input type="text" id="nouveau-nom" placeholder="Michel_du_35">
+          <input type="submit" class="btn btn-primary btn-sm" value="Valider"/>
         </form>
-        <table>
+        <table class="table">
           <thead>
             <tr>
               <th>Nom</th>

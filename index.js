@@ -41,6 +41,7 @@ io.on("connection", (socket) => {
 
       // Envoie le message 'nouvelle-cible à tous les sockets.
       io.emit('nouvelle-cible', partie.numeroCible);
+      // Envoie le message 'gagne' seulement à ce socket.
       socket.emit('gagne');
       io.emit('maj-joueurs', partie.joueurs);
     }

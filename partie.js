@@ -20,7 +20,7 @@ export class Partie {
         this.numeroCible;
         this.joueurs = [];
         this.nouvelleCible();
-        this.ancienGagnant;//joueur
+        this.ancienGagnant; //joueur
     }
 
     /**
@@ -65,7 +65,6 @@ export class Partie {
     gagne(socketId){
         this.nouvelleCible();
         // Envoie le message 'nouvelle-cible à tous les sockets.
-        // Envoie le message 'gagne' seulement à ce socket.
         let joueur = this.getJoueurById(socketId);
         joueur.changerScore();
   
@@ -73,8 +72,8 @@ export class Partie {
             joueur.changerCombo();
         }
 
-        else if ((typeof this.ancienGagnant !== 'undefined')) {
-              ancienGagnant.stopCombo();
+        else if (typeof this.ancienGagnant !== 'undefined') {
+            this.ancienGagnant.stopCombo();
         }
         this.ancienGagnant = joueur;
     }
