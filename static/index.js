@@ -48,7 +48,7 @@ socket.on('nouvelle-cible', function(numeroCible){
 });
 
 socket.on('gagne', function(){
-    gagneDiv.textContent = "Gagné!";
+    gagneDiv.textContent = "C'est gagné !";
 });
 
 
@@ -58,6 +58,10 @@ socket.on('maj-joueurs', function (joueurs){
         const ligne = joueursTable.insertRow();
         let nom = ligne.insertCell();
         nom.textContent = joueur.nom;
+        if(document.getElementById('nouveau-nom').value !== ''){
+            document.getElementById('nouveau-nom').value = '';
+        }
+
         let score = ligne.insertCell();
         score.textContent = joueur.score;
         let combo = ligne.insertCell();

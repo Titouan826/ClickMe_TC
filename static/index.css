@@ -53,7 +53,7 @@ form{
 }
 
 #jeu{
-    margin-left: 50px;
+    margin-left: 100px;
 }
 
 h1{
@@ -67,4 +67,8 @@ h1{
 
 #form-table{
     margin-top: 45px !important;
+}
+
+#gagne{
+    margin-left: 100px;
 }
