@@ -5,12 +5,14 @@
  * ├──────────────────┤
  * │ - nombreCible    │
  * │ - numeroCible    │
- * │ - joueurs        │
+ * │ - joueurs        |
+ * │ - ancienGagnant  │
  * ├──────────────────┤
  * │ + nouvelleCible  │
  * │ + nouveauJoueur  │
  * │ + supprimeJoueur │
  * │ + getJoueurById  │
+ * │ + gagne          │
  * └──────────────────┘
  */
 
@@ -20,7 +22,7 @@ export class Partie {
         this.numeroCible;
         this.joueurs = [];
         this.nouvelleCible();
-        this.ancienGagnant; //joueur
+        this.ancienGagnant; // Un joueur
     }
 
     /**
@@ -59,22 +61,25 @@ export class Partie {
     }
 
     /**Un joueur a cliqué sur la bonne cible
-     * 
-     * @param {*} socketId 
+     * Met à jour le score et les combos
+     * @param {*} socketId - socketId du gagnant
      */
     gagne(socketId){
         this.nouvelleCible();
-        // Envoie le message 'nouvelle-cible à tous les sockets.
         let joueur = this.getJoueurById(socketId);
         joueur.changerScore();
   
+        // Incremente le combo si le joueur a deja gagne le tour precedent
         if (joueur == this.ancienGagnant){
             joueur.changerCombo();
         }
 
+        // C'est un nouveau gagnant: on arrete le combo du gagnant precedent
         else if (typeof this.ancienGagnant !== 'undefined') {
             this.ancienGagnant.stopCombo();
         }
+
+        // On stocke le gagnant pour le prochain tour
         this.ancienGagnant = joueur;
     }
 }
@@ -91,6 +96,11 @@ export class Partie {
  * | - combo          |
  * | - comboMax       |
  * ├──────────────────┤
+ * | + changerNom     |
+ * | + changerScore   |
+ * | + changerCombo   |
+ * | + stopCombo      |
+ * | + changerComboMax|
  * └──────────────────┘
  */
 class Joueur {
@@ -98,19 +108,30 @@ class Joueur {
         this.nom = nom;
         this.socketId = socketId;
         this.score = 0;
-        //
+        // On initialise le combo a 1 car un combo commence a 2
         this.combo = 1;
         this.comboMax = 1;
     }
 
+    
+    /**
+     * Change le nom d'un joueur 
+     * @param {string} nouveauNom - nom du joueur à changer
+     */
     changerNom(nouveauNom){
         this.nom = nouveauNom;
     }
 
+    /**
+     * Change le score d'un joueur
+     */
     changerScore(){
         this.score += 1;
     }
 
+    /**
+     * Change le combo d'un joueur
+     */
     changerCombo(){
         this.combo += 1;
         if (this.combo > this.comboMax){
@@ -118,11 +139,18 @@ class Joueur {
           }
     }
 
+    /**
+     * Stoppe le combo d'un joueur et le remet à 1
+     */
     stopCombo(){
-
+        // On remet le combo a 1 pour qu'il s'incremente au bon moment
+        // Si on le met a 0, il se met à jour 1 tour trop tard
         this.combo = 1;
     }
 
+    /**
+     * Change le comboMax d'un joueur
+     */
     changerComboMax(){
         this.comboMax += 1;
     }

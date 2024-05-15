@@ -6,6 +6,8 @@ import { join, dirname } from 'node:path';
 import { Partie } from './partie.js';
 
 
+
+
 // Mise en place du serveur
 const app = express();
 const server = createServer(app);
@@ -13,13 +15,16 @@ const io = new Server(server);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static('static/'));
 
+
 // Crée une partie
 const partie = new Partie();
+
 
 // On sert le fichier index.html à la racine /
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'views', 'index.html'));
 })
+
 
 // Gestion des scockets
 io.on("connection", (socket) => {
@@ -44,20 +49,27 @@ io.on("connection", (socket) => {
       // Envoie le message 'gagne' seulement à ce socket.
       socket.emit('gagne');
 
+      // On met à jour la liste des joueurs 
       io.emit('maj-joueurs', partie.joueurs);
+      // Envoie le message "timer" pour afficher le temps de click côté client
       socket.emit('timer');
     }
   });
 
+
+
   socket.on('disconnect', () => {
     console.log(`le joueur ${socket.id} s'est déconnecté`);
     partie.supprimeJoueur(socket.id);
+    // On met à jour la liste des joueurs pour tous les sockets 
     io.emit('maj-joueurs', partie.joueurs);
   });
+
 
   socket.on('changer-nom', (nouveauNom) => {
     let joueur = partie.getJoueurById(socket.id);
     joueur.changerNom(nouveauNom);
+    // On met à jour la liste des joueurspour tous les sockets 
     io.emit('maj-joueurs', partie.joueurs);
   });
 

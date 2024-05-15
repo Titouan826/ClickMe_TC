@@ -5,6 +5,8 @@ const joueursTable = document.getElementById('tableau-joueurs');
 const inputChangerNom = document.getElementById('nouveau-nom');
 const formChangerNom = document.getElementById('changer-nom');
 const tempsDiv = document.getElementById('temps-reaction');
+
+// Initialisation des variables pour la gestion du temps de click
 var debutTimer;
 var finTimer;
 var tempsReaction;
@@ -18,12 +20,12 @@ function clickCible(event){
     finTimer = Date.now();
     tempsReaction = finTimer - debutTimer;
     tempsReaction = tempsReaction/1000;
-    //console.log(tempsReaction);
 
     socket.emit('click-cible', numeroCible);
 }
 
 socket.on('timer', function(){
+    // Affichage du temps de réaction
     tempsDiv.textContent = "Temps: " + tempsReaction + " secondes.";
 });
 
@@ -38,7 +40,7 @@ socket.on('initialise', function(nombreCible){
         cible.classList.add('cible');
         // Ajoute l'attribut 'numeroCible' à la cible
         cible.setAttribute('numeroCible', i);
-
+        // Ajoute la cible à la div "jeu"
         jeuxDiv.append(cible)
         // Ecoute le click sur la cible
         cible.addEventListener('click', clickCible)
@@ -55,14 +57,13 @@ socket.on('nouvelle-cible', function(numeroCible){
 
     // Ajoute la classe clickme à la nouvelle cible
     const cible = document.querySelector(`[numeroCible="${numeroCible}"]`);
-
     cible.classList.add('clickme');
 
     // Vide gagneDiv
     gagneDiv.textContent = "";
     tempsDiv.textContent = "";
 
-    //Lance le timer
+    // Lance le timer
     debutTimer = Date.now();
 });
 
@@ -72,17 +73,26 @@ socket.on('gagne', function(){
 
 
 socket.on('maj-joueurs', function (joueurs){
+    // Vide le tableau des joueurs
     joueursTable.innerHTML = '';
+
+    // Gère l'affichage des joueurs
+    // On boucle sur chaque joueur
     for(const joueur of joueurs){
+        // Ajoute une ligne
         const ligne = joueursTable.insertRow();
+        // Ajoute une cellule
         let nom = ligne.insertCell();
+        // Affiche le nom
         nom.textContent = joueur.nom;
         if(document.getElementById('nouveau-nom').value !== ''){
             document.getElementById('nouveau-nom').value = '';
         }
 
+        // Affiche le score et les combos
         let score = ligne.insertCell();
         score.textContent = joueur.score;
+        
         let combo = ligne.insertCell();
         if (joueur.combo >= 2){
             combo.textContent = joueur.combo;
@@ -103,7 +113,10 @@ socket.on('maj-joueurs', function (joueurs){
 });
 
 formChangerNom.addEventListener('submit', function(event){
+    // Empeche de la page de se rafraichir
     event.preventDefault();
+
+    // Change le nom
     nouveauNom = inputChangerNom.value;
     socket.emit('changer-nom', nouveauNom);
 });

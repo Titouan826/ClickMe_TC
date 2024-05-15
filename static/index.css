@@ -8,8 +8,8 @@ body{
 
 #jeu{
     display: grid;
-    grid-template-columns: 100px 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px 100px;
+    grid-template-columns: 120px 120px 120px 120px;
+    grid-template-rows: 120px 120px 120px 120px;
     gap:10px;
     width:100%;
     height:100%;
@@ -18,20 +18,22 @@ body{
 
 .cible{
     border-radius: 50px;
-    border:1px solid;
+    border: 2px solid;
     cursor:pointer;
-    background-color: lightgrey;
+    background-color: rgb(146, 146, 146);
     opacity: 0.5;
 }
 
 .clickme{
-    background-color: green;
+    background-color: rgb(36, 197, 36);
     opacity: 1;
 }
 
 #gagne{
     height: 1em;
     font-size: 1.5em;
+    margin-top: 50px;
+    margin-left: 100px;
 }
 
 #conteneur{
@@ -52,6 +54,11 @@ form{
     margin-left: 30px;
 }
 
+/* 
+J'utilise quelques "!important" pour passer devant Bootstrap
+Sinon, certaines modifs ne s'appliquent pas
+*/
+
 h1{
     margin-top: 40px !important;
     margin-bottom: 40px !important;
@@ -68,6 +75,6 @@ h1{
 }
   
 #temps-reaction{
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 50px;
+    margin-left: 100px;
 }
